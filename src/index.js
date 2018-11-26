@@ -104,34 +104,6 @@ export default class RNPickerSelect extends PureComponent {
         };
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        // update items if items prop changes
-        const itemsChanged = !isEqual(prevState.items, nextProps.items);
-        // update selectedItem if value prop is defined and differs from currently selected item
-        const newItems = RNPickerSelect.handlePlaceholder({
-            placeholder: nextProps.placeholder,
-        }).concat(nextProps.items);
-        const { selectedItem, idx } = RNPickerSelect.getSelectedItem({
-            items: newItems,
-            key: nextProps.itemKey,
-            value: nextProps.value,
-        });
-        const selectedItemChanged =
-            !isEqual(nextProps.value, undefined) && !isEqual(prevState.selectedItem, selectedItem);
-
-        if (itemsChanged || selectedItemChanged) {
-            // if (selectedItemChanged) {
-            //     nextProps.onValueChange(selectedItem.value, idx);
-            // }
-            return {
-                items: itemsChanged ? newItems : prevState.items,
-                selectedItem: selectedItemChanged ? selectedItem : prevState.selectedItem,
-            };
-        }
-
-        return null;
-    }
-
     constructor(props) {
         super(props);
 
